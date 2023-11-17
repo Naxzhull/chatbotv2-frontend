@@ -1,0 +1,19 @@
+<header class="w-full bg-zinc-900" [ngClass]="{ 'sticky top-0 z-10' : router.url.includes('/chat') }">
+  <div class="m-auto w-3/4 overflow-hidden flex flex-row flex-wrap p-4 justify-between">
+    <section class="h-auto w-3/12 flex flex-col items-center justify-center">
+      <a routerLink="/home" routerLinkActive="activebutton" ariaCurrentWhenActive="page">
+        <p class="btn btn-accent">Chatbot V2</p>
+      </a>
+    </section>
+    <nav class="navbar w-3/4 h-auto flex justify-end items-center gap-5">
+        @if (router.url !== "/home") {
+          <a class="btn btn-link link-accent no-underline" routerLink="/home" routerLinkActive="activebutton" ariaCurrentWhenActive="page">Inicio</a>
+        } @else {
+          <a class="btn btn-link link-accent no-underline" routerLink="/chat" routerLinkActive="activebutton" ariaCurrentWhenActive="page">Chat</a>
+        }
+    </nav>
+  </div>
+</header>
+<main class="m-auto w-3/4 h-full overflow-hidden">
+  <router-outlet></router-outlet>
+</main>
