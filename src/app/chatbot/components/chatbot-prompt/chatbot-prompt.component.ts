@@ -1,4 +1,4 @@
-import { Component, OnInit, WritableSignal, signal, effect } from '@angular/core';
+import { Component, WritableSignal, signal, effect } from '@angular/core';
 import { SpeechService } from '../../../services/speech.service';
 import { RecognitionService } from '../../../services/recognition.service';
 import { OpenaiService } from '../../../services/openai.service';
@@ -7,7 +7,7 @@ import { OpenaiService } from '../../../services/openai.service';
   selector: 'chatbot-prompt',
   templateUrl: 'chatbot-prompt.component.html',
 })
-export class ChatbotPromptComponent implements OnInit {
+export class ChatbotPromptComponent {
   public input: string = '';
   public isSpeaking: boolean = false;
   public selectedInputPreference: boolean = false;
@@ -17,11 +17,7 @@ export class ChatbotPromptComponent implements OnInit {
     private readonly synthesis: SpeechService,
     private readonly recognition: RecognitionService,
     private readonly completion: OpenaiService
-  ) {
-    effect(() => console.log(this.utterance()))
-  }
-
-  ngOnInit() { }
+  ) {}
 
   onChangeInput = () => this.utterance.set(this.input);
 
