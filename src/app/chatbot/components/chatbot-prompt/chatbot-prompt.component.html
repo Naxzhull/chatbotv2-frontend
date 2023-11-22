@@ -1,13 +1,13 @@
 <section class="w-96 bg-zinc-950 rounded-lg flex flex-col justify-between items-center px-2 py-4" [ngClass]="{ 'h-60' : selectedInputPreference, 'h-96' : !selectedInputPreference }">
   <div class="w-full my-2 flex items-center justify-evenly">
     <label for="change-input">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" [ngClass]="{ 'stroke-accent': !selectedInputPreference }">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" [ngClass]="{ 'stroke-success': !selectedInputPreference }">
         <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
       </svg>
     </label>
     <input type="checkbox" id="change-input" class="toggle toggle-success" [(ngModel)]="selectedInputPreference" />
     <label for="change-input">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" [ngClass]="{ 'stroke-accent': selectedInputPreference }">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" [ngClass]="{ 'stroke-success': selectedInputPreference }">
         <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" />
       </svg>      
     </label>
@@ -20,7 +20,7 @@
     [ngClass]="{ 'justify-end' : selectedInputPreference }"
   >
     @if (!selectedInputPreference) {
-      <input type="submit" value="Enviar" class="btn btn-accent w-full" [disabled]="input === '' ">
+      <input type="submit" value="Enviar" class="btn btn-primary disabled:bg-neutral text-white disabled:text-black w-full" [disabled]="input === '' ">
       <textarea
         placeholder="Escribe tu pregunta.." 
         class="textarea textarea-bordered textarea-lg w-full resize-none h-full" 
@@ -30,13 +30,13 @@
         [ngModelOptions]="{ standalone: true }"
       ></textarea>
     } @else {
-      <button type="button" class="btn btn-accent" (click)="startRecognition()" [disabled]="isSpeaking">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 stroke-black">
+      <button type="button" class="btn btn-primary" (click)="startRecognition()" [disabled]="isSpeaking">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 stroke-white stroke-2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" />
         </svg>        
       </button>
-      <button type="button" class="btn btn-secondary" (click)="abortRecognition()">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 stroke-black">
+      <button type="button" class="btn btn-accent" (click)="abortRecognition()">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 stroke-white stroke-2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 7.5A2.25 2.25 0 017.5 5.25h9a2.25 2.25 0 012.25 2.25v9a2.25 2.25 0 01-2.25 2.25h-9a2.25 2.25 0 01-2.25-2.25v-9z" />
         </svg>
       </button>
