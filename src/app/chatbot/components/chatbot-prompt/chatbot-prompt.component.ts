@@ -1,4 +1,4 @@
-import { Component, OnInit, WritableSignal, signal } from '@angular/core';
+import { Component, OnInit, WritableSignal, signal, effect } from '@angular/core';
 import { SpeechService } from '../../../services/speech.service';
 import { RecognitionService } from '../../../services/recognition.service';
 import { OpenaiService } from '../../../services/openai.service';
@@ -17,9 +17,11 @@ export class ChatbotPromptComponent implements OnInit {
     private readonly synthesis: SpeechService,
     private readonly recognition: RecognitionService,
     private readonly completion: OpenaiService
-  ) {}
+  ) {
+    effect(() => console.log(this.utterance()))
+  }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   onChangeInput = () => this.utterance.set(this.input);
 
@@ -29,21 +31,20 @@ export class ChatbotPromptComponent implements OnInit {
   };
 
   abortRecognition = () => {
-    this.recognition.abortRecording();
     this.isSpeaking = false;
+    this.recognition.abortRecording();
     this.speakFromRecognition();
+    this.completion
+      .startChat(this.utterance())
+      .subscribe(({ data }) =>
+        this.synthesis.speakFromUtterance(data.choices[0].message.content)
+      );
   };
 
   speakFromRecognition = () => {
     this.recognition.rs.onresult = (event: any) => {
       const result = event.results[0][0].transcript;
-      this.utterance.set(result);
-      this.completion
-        .startChat(this.utterance())
-        .subscribe(({ data }) =>
-          this.synthesis.speakFromUtterance(data.choices[0].message.content)
-        );
-      this.isSpeaking = false;
+      this.utterance.set(result)
     };
   };
 
