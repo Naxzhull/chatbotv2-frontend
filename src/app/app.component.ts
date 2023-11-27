@@ -1,8 +1,9 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, isDevMode } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 import { ChatbotModule } from './chatbot/chatbot.module';
+import { environment } from "../environments/environment";
 
 @Component({
   selector: 'app-root',
@@ -13,9 +14,15 @@ import { ChatbotModule } from './chatbot/chatbot.module';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  public router = inject(Router)
+  public router = inject(Router);
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (isDevMode()) {
+      console.log('Development running!');
+    } else {
+      console.log('Production running!');
+    }
+  }
 }
