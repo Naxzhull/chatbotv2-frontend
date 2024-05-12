@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class ChatbotComponent implements OnInit {
+  public speechRecognizable : boolean = false;
+
   constructor() { }
 
   ngOnInit() { }

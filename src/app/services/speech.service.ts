@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { getWindow } from 'ssr-window';
 
 @Injectable({
   providedIn: 'root',
@@ -7,7 +8,8 @@ export class SpeechService {
   private synth: any;
 
   constructor() {
-    this.synth = window.speechSynthesis;
+    // 👇 paquete npm because SSR
+    this.synth = getWindow().speechSynthesis;
   }
 
   speakFromUtterance(utterance: string): void {
