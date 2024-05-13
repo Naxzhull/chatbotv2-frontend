@@ -32,3 +32,7 @@ export interface CompletionRequest {
 export interface CompletionData {
   content:  string
 }
+
+export interface MessageResponse {
+  content: ({ text:any })[]
+}

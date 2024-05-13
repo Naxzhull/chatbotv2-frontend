@@ -1,0 +1,51 @@
+body {
+    background-color: #212121;
+    color: snow;
+}
+
+.app-wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+    align-items: center;
+}
+
+.area-wrapper {
+    /* position: relative; */
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    /* align-items: center; */
+    padding: 1em;
+    background-color:#212121;
+    min-width: 37em;
+    /* max-width: 60em; */
+    height: 60vh;
+}
+
+.area-wrapper-content {
+    overflow: scroll;
+}
+
+.area-main {
+    word-break: break-word;
+    text-align: justify;
+    overflow-y: scroll;
+    width: -moz-available;
+    height: 78vh !important;
+    background: #212121;
+    color: snow;
+    border: none;
+    resize: none;
+}
+
+/* .area-prompt {
+    position:absolute;
+    bottom: 10px;
+    width: 95%;
+} */
+
+/* .prompt-input-group {
+    width: 50em;
+} */
