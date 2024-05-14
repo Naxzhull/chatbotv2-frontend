@@ -1,6 +1,6 @@
 <header class="w-full bg-primary" [ngClass]="{ 'sticky top-0 z-10' : router.url.includes('/chat') }">
-  <div class="m-auto w-3/4 overflow-hidden flex flex-row flex-wrap p-4 justify-between">
-    <section class="h-auto w-3/12 flex items-center justify-center">
+  <div class="m-auto overflow-hidden flex flex-row p-4">
+    <section class="h-auto flex items-center justify-center">
       <a href="https://www.pjenl.gob.mx/" ariaCurrentWhenActive="page">
         <img src="https://www.pjenl.gob.mx/Media/Logos/logo-hd-pjenl.png" alt="Logo" class="w-52 h-auto">
       </a>
@@ -8,7 +8,7 @@
         <img src="https://www.pjenl.gob.mx/Media/Logos/logo-hd-instituto-judicatura-25Aniv.png" alt="Logo" class="w-52 h-auto">
       </a>
     </section>
-    <nav class="navbar w-3/4 h-auto flex justify-end items-center">
+    <nav class="navbar h-auto flex justify-end items-center">
         @if (router.url !== "/home") {
           <a class="btn btn-outline text-white font-bold border-2" routerLink="/home" routerLinkActive="activebutton" ariaCurrentWhenActive="page">Inicio</a>
         } @else {

@@ -19,19 +19,19 @@ body {
     /* align-items: center; */
     padding: 1em;
     background-color:#212121;
-    min-width: 37em;
+    /* min-width: 37em; */
     /* max-width: 60em; */
     height: 60vh;
 }
 
 .area-wrapper-content {
-    overflow: scroll;
+    height: 80%;
 }
 
 .area-main {
     word-break: break-word;
     text-align: justify;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
     width: -moz-available;
     height: 78vh !important;
     background: #212121;
@@ -40,11 +40,11 @@ body {
     resize: none;
 }
 
-/* .area-prompt {
-    position:absolute;
+.area-prompt {
+    position: absolute;
     bottom: 10px;
-    width: 95%;
-} */
+    width: -webkit-fill-available;
+}
 
 /* .prompt-input-group {
     width: 50em;

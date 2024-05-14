@@ -42,6 +42,7 @@ export class ChatbotTextMainComponent implements AfterViewChecked {
   }
 
   public enviarPrompt() {
+    if ( !this.promptDelUsuario ) return;
     this.mensajes.push({
       role: 'user',
       content: this.promptDelUsuario,
@@ -78,7 +79,7 @@ export class ChatbotTextMainComponent implements AfterViewChecked {
     });
   }
  
-  public onChangeInput(event:any) { this.promptDelUsuario = event.originalTarget.value; }
+  public onChangeInput(event:string) { this.promptDelUsuario = event; }
 
   public getHour(tiempo: Date) : string {
     return tiempo.toLocaleTimeString();

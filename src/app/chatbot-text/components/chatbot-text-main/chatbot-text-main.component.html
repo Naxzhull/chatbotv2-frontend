@@ -1,17 +1,22 @@
 <div class="app-wrapper">
-    <h1>Instituto de la Judicatura</h1>
-  
-    <h3>Maestro Virtual</h3>
-  
-    <p>Esta interfaz está diseñada para facilitar la evaluación y el mejoramiento de la experiencia educativa del proyecto Maestro Virtual.</p>
-  
+    
+    <div class="card w-80 bg-base-100 shadow-xl">
+        <figure class="px-10 pt-5 max-w-40 self-center">
+          <img src="../assets/maestro-virtual-logo.png" alt="Logo" class="rounded-xl" />
+        </figure>
+        <div class="card-body items-center text-center">
+          <h2 class="card-title">Maestro Virtual</h2>
+          <p class="text-sm">Maestro del curso 'Derecho Humanos en los Procesos Judiciales' para el Poder Judicial del Estado de Nuevo León, México</p>
+        </div>
+    </div>
+
     <!-- Area Wrapper -->
-    <div class="mockup-browser border bg-base-300 area-wrapper">
+    <div class="mockup-browser border bg-base-300 area-wrapper w-full">
         <div class="mockup-browser-toolbar">
           <div class="input text-sm">https://www.pjenl.gob.mx/MaestroVirtual/</div>
         </div>
         
-        <div class="area-wrapper-content" #areaWrapperContent>
+        <div class="area-wrapper-content overflow-y-auto" #areaWrapperContent>
             @for (mensaje of mensajes; track $index) {
                 <div class="chat chat-start text-sm" [class.chat-start]="mensaje.role==='assistant'" [class.chat-end]="mensaje.role==='user'">
                     <div class="chat-image avatar">
@@ -49,12 +54,12 @@
         <!-- Prompt -->
         <div class="area-prompt">
             <div class="join join-prompt w-full ">
-                <input 
+                <input #box
                     type="text" 
-                    class="input input-bordered input-primary w-full h-12 join-item"
+                    class="input input-bordered input-primary w-full h-12 join-item text-sm"
                     placeholder="Escribe aqui" 
                     [(value)]="promptDelUsuario"
-                    (input)="onChangeInput($event)"
+                    (keyup)="onChangeInput(box.value)"
                     (keyup.enter)="enviarPrompt()" 
                 />
                 <button class="btn join-item rounded-r-full h-12" (click)="enviarPrompt()">Enviar</button>
@@ -63,8 +68,6 @@
     </div>
 
   </div>
-  
 
-
-
+  <img style="display:none" alt="Foto del usuario" src="https://random.imagecdn.app/50/50" />
   
