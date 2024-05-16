@@ -24,7 +24,7 @@ export class ChatbotTextMainComponent implements AfterViewChecked {
   private needsScroll : boolean = false;
   public mensajes : Mensaje[] = [{
       role: 'assistant',
-      content: '¿En qué puedo ayudarte?',
+      content: 'Soy tu Profesor Virtual, ¿necesitas alguna orientación acerca de este curso?',
       status: 'done',
       tiempo: new Date()
     }];
