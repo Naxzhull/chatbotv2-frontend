@@ -1,13 +1,17 @@
-import { AfterViewChecked, ChangeDetectorRef, Component, ElementRef, signal, ViewChild } from '@angular/core';
-import { OpenaiService } from '../../../services/openai.service';
-import { Mensaje } from '../../../models/mensajes';
+import { AfterViewChecked, ChangeDetectorRef, Component, ElementRef, Inject, signal, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Mensaje } from '../../../../models/mensajes';
+import { OpenaiService } from '../../../../services/openai.service';
 
 @Component({
-  selector: 'app-chatbot-text-main',
-  templateUrl: './chatbot-text-main.component.html',
-  styleUrl: './chatbot-text-main.component.css'
+  selector: 'app-chatbot-stream-main',
+  standalone: true,
+  imports: [
+    FormsModule],
+  templateUrl: './chatbot-stream-main.component.html',
+  styleUrl: './chatbot-stream-main.component.css'
 })
-export class ChatbotTextMainComponent implements AfterViewChecked {
+export class ChatbotStreamMainComponent implements AfterViewChecked {
   @ViewChild('areaWrapperContent') private readonly areaWrapperContent? : ElementRef;
 
   public nombreDelAsistente = 'Asistente';
@@ -24,7 +28,7 @@ export class ChatbotTextMainComponent implements AfterViewChecked {
     }];
 
   constructor(
-    private readonly changeDetector : ChangeDetectorRef,
+    @Inject(ChangeDetectorRef) private changeDetector: ChangeDetectorRef,
     private readonly openAiService : OpenaiService
   ) { }
 
@@ -53,7 +57,7 @@ export class ChatbotTextMainComponent implements AfterViewChecked {
   private async sendPromptToOpenAI(prompt:string) {
     const msgIndex = this.mensajes.length;
 
-    setTimeout( () => {
+    //setTimeout( () => {
       this.mensajes.push({
         role: 'assistant',
         content: '',
@@ -61,19 +65,19 @@ export class ChatbotTextMainComponent implements AfterViewChecked {
         tiempo: new Date()
       });
       this.needsScroll = true;
-    },1000)
+    //},1000)
 
-    this.openAiService
-    .startChatWithAssistant(prompt)
-    .subscribe(( {data} ) => {
-      const respuesta = data.content[0].text.value;
-      this.mensajes[msgIndex].content = respuesta;
-      this.mensajes[msgIndex].status = 'done';
-      this.needsScroll = true;
+    this.openAiService.startStreamChatWithAssistant(prompt)
+    .subscribe({
+      next: ( chunk ) => {
+          this.mensajes[msgIndex].status = 'writing';
+          this.mensajes[msgIndex].content += chunk;
+          this.needsScroll = true;
+        },
+      complete: ()=> this.mensajes[msgIndex].status = 'done',
+      error: (err) => console.error(`ERROR! ${err}`)
     });
   }
- 
-  public onChangeInput(event:string) { this.promptDelUsuario = event; }
 
   public getHour(tiempo: Date) : string {
     return tiempo.toLocaleTimeString();
@@ -83,6 +87,5 @@ export class ChatbotTextMainComponent implements AfterViewChecked {
     if ( this.areaWrapperContent !== undefined ) {
       this.areaWrapperContent.nativeElement.scrollTop = this.areaWrapperContent.nativeElement.scrollHeight + 100;
     } 
-  }               
-
+  }   
 }

@@ -1,0 +1,69 @@
+<div class="app-wrapper">
+    <h1>Instituto de la Judicatura</h1>
+  
+    <h3>Maestro Virtual</h3>
+  
+    <p>Esta interfaz está diseñada para facilitar la evaluación y el mejoramiento de la experiencia educativa del proyecto Maestro Virtual.</p>
+  
+    <!-- Area Wrapper -->
+    <div class="mockup-browser border bg-base-300 area-wrapper">
+        <div class="mockup-browser-toolbar">
+          <div class="input text-sm">https://www.pjenl.gob.mx/MaestroVirtual/</div>
+        </div>
+        
+        <div class="area-wrapper-content" #areaWrapperContent>
+            @for (mensaje of mensajes; track $index) {
+                <div class="chat chat-start text-sm" [class.chat-start]="mensaje.role==='assistant'" [class.chat-end]="mensaje.role==='user'">
+                    <div class="chat-image avatar">
+                    <div class="w-10 rounded-full">
+                        @if (mensaje.role==='assistant') {
+                            <img alt="Foto del asistente" src="../assets/maestro-virtual-logo.png" />
+                        } @else {
+                            <img alt="Foto del usuario" src="https://random.imagecdn.app/50/50" />
+                        }
+                    </div>
+                    </div>
+                    <div class="chat-header text-xs">
+                        @if (mensaje.role==='assistant') {
+                            {{nombreDelAsistente}}
+                        } @else {
+                            {{nombreDelUsuario}}
+                        }
+                        <time class="text-xs opacity-50">{{ getHour(mensaje.tiempo) }}</time>
+                    </div>
+                    <div class="chat-bubble">
+                        @if (mensaje.status==='thinking') {
+                            <span class="loading loading-dots loading-xl" [class.show]="loading()" viewBox="0 0 24 24"></span>
+                        } @else {
+                            {{mensaje.content}}
+                        }
+                    </div>
+                    <div class="chat-footer opacity-50">
+                        Delivered
+                    </div>
+                </div>
+            }
+
+        </div>
+
+        <!-- Prompt -->
+        <div class="area-prompt">
+            <div class="join join-prompt w-full ">
+                <input 
+                    type="text" 
+                    class="input input-bordered input-primary w-full h-12 join-item"
+                    placeholder="Escribe aqui" 
+                    [(ngModel)]="promptDelUsuario"
+                    (keyup.enter)="enviarPrompt()" 
+                />
+                <button class="btn join-item rounded-r-full h-12" (click)="enviarPrompt()">Enviar</button>
+            </div>
+        </div>
+    </div>
+
+  </div>
+  
+
+
+
+  

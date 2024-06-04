@@ -30,4 +30,36 @@ export class OpenaiService {
       body
     );
   }
+
+  public startStreamChatWithAssistant(content: string): Observable<string> {
+    return new Observable((observer) => {
+
+      // Enviar el mensaje inicial
+      const stream = fetch(this.baseUrl + 'assistant/stream', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          //'Content-Type': 'text/event-stream',
+        },
+        body: JSON.stringify({ messages: [{ content }] }),
+      }).catch((error) => observer.error(error))
+      .then( async (streamResponse) => {
+        //console.log(streamResponse);
+        if (streamResponse){
+          const reader = streamResponse.body?.pipeThrough(new TextDecoderStream()).getReader()
+          if (reader) {
+            let ended : boolean = false;
+            while (true) {
+              const {value, done} = await reader.read();
+              if (done) {
+                observer.complete();
+                break;
+              }
+              observer.next( value );
+            }
+          }
+        }
+      })
+    });
+  }
 }
